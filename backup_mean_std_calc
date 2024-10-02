@@ -1,0 +1,64 @@
+# By. Andrew Trepagnier - ALT658 - 9/29/2024
+
+
+# This program calculates the standard deviation of a population sample 
+# A User inputs the size of the population and then creates an empty list for the user to input each element of the designated length
+# The program then calculates the mean of the population sample
+# Then it calculates the sum of the squared differences between each element and the mean
+# Then it calculates the standard deviation using the formula 
+import sympy as sp
+
+
+population_sample = []  # This should be renamed to 'population_sample'
+
+def print_welcome_message():
+    print("Welcome to the Standard Deviation Calculator for population sample")
+    print("--------------------------------------------------------------------- ")
+    # Remove the return statement, it's not needed for print functions
+
+def main():
+    print("Enter the number of elements in the population sample:")
+    n = int(input())  # Use a separate variable for the number of elements
+    
+    print("Begin listing elements within population sample: ")
+    for i in range(n):
+        population_sample.append(int(input()))  # Use append instead of insert
+
+    print("Your population of elements is: ", population_sample)
+    print("Does this look correct? Enter [1] for yes, Enter any other key for no")
+    user_input = input()
+
+    # Primary if statement
+    if user_input == "1":
+        print("Continuing with calculations...")
+        sample_standard_dev_calc()  # Call the function, don't return it
+    else:
+        print("Restarting program...")
+        main()
+
+def sample_standard_dev_calc():
+    # ... existing code ...
+    
+    xi_minus_mean = []  # Initialize as an empty list
+    mean_of_population = sum(population_sample) / len(population_sample)
+    value = 0
+    for value in range(len(population_sample)):
+        xi_minus_mean.insert(value, round((population_sample[value] - mean_of_population)**2, 2)) # rounds to hundredths
+        print(xi_minus_mean)
+        print(mean_of_population)
+        sum_of_xi_minus_mean = sum(xi_minus_mean)
+    
+    # ... rest of the calculation ...
+    # this is the standard deviation of the sample population or "Sample Standard Deviation"
+    val_1 = sp.sqrt(1 / (len(population_sample) - 1))  
+    s_x = val_1 * sp.sqrt(sum_of_xi_minus_mean)  
+
+    # To calculate the the sample standard deviation of the sample mean, we have one more calculation step:
+    # we divide the sample standard deviation by the square root of the sample size
+    std_of_sample_mean = s_x / sp.sqrt(len(population_sample))
+    print("The sample standard deviation of the population is: ", round(s_x, 3))
+    print("The mean standard deviation of the population is: ", round(std_of_sample_mean, 3))
+
+if __name__ == "__main__":
+    print_welcome_message()
+    main()
